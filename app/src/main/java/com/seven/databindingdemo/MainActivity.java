@@ -3,11 +3,16 @@ package com.seven.databindingdemo;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
+import com.seven.databindingdemo.adapter.RVAdapter;
 import com.seven.databindingdemo.databinding.ActivityMainBinding;
 import com.seven.databindingdemo.model.Student;
 import com.seven.databindingdemo.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        initView();
+        initRecyclerView();
+    }
+
+    private void initView() {
         mBinding.setUser(mUser);
         mBinding.setStudent(mStudent);
         final Random random = new Random();
@@ -59,5 +70,19 @@ public class MainActivity extends AppCompatActivity {
                 mCount ++;
             }
         }, 1000, 500);
+    }
+
+    private void initRecyclerView() {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 20; i ++) {
+            users.add(new User("Carl" + i, i % 3 == 0, i));
+        }
+
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.recyclerView.setAdapter(new RVAdapter(users));
+    }
+
+    public void onBtnClick(View v) {
+        mCount = 0;
     }
 }

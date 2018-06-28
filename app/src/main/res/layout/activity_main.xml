@@ -57,6 +57,12 @@
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(student.number)}" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ReBind"
+            android:onClick="onBtnClick"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
